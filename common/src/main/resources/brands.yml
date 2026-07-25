@@ -1,0 +1,11 @@
+"admin":
+  condition: ""
+  shuffle: false
+  brands:
+    - "&eCustom Paper"
+"default":
+  condition: "%player_gamemode%==creative;%player_is_op%==true"
+  shuffle: false
+  brands:
+    - "&aWorld: %player_world%"
+    - "&eNice world"
