@@ -1,2 +1,2 @@
-# ProF3Brand
-Custom F3 server brand plugin for Spigot, Bungee, and Velocity.
+# About
+**ProF3Brand** is the most accessible and available plugin to customize your very own F3 server brand.
