@@ -1,6 +1,7 @@
 package de.rayzs.prof3brand.api.condition;
 
 import de.rayzs.prof3brand.api.condition.operators.exceptions.ConditionException;
+import de.rayzs.prof3brand.api.condition.operators.exceptions.InvalidParametersException;
 import de.rayzs.prof3brand.api.utils.StringUtils;
 
 public abstract class ConditionOperator {
@@ -41,30 +42,41 @@ public abstract class ConditionOperator {
 
 
     public enum ConditionInputType {
-        BOOL(Boolean.class),
-        NUM(Number.class),
-        STR(String.class),
-
-        ALL();
+        BOOL, NUM, STR,
+        ALL;
 
 
+        ConditionInputType() {}
 
-        private final Class<?>[] clazzes;
+        public <T> T validateIfPossible(final Class<T> type, final String str) {
+            final Object validatedObj = validate(str);
 
-        ConditionInputType(final Class<?>... clazzes) {
-            this.clazzes = clazzes;
-        }
-
-        public boolean isValid(final Class<?> clazz) {
-            if (clazzes.length == 0) return true;
-
-            for (Class<?> aClass : clazzes) {
-                if (clazz.isAssignableFrom(aClass)) {
-                    return true;
-                }
+            if (type.isInstance(validatedObj)) {
+                return type.cast(validatedObj);
             }
 
-            return false;
+            return null;
+        }
+
+        private Object validate(final String str) {
+            switch (this) {
+                case STR:
+                    return str;
+
+                case NUM:
+                    try {
+                        return Float.parseFloat(str);
+                    } catch (final NumberFormatException exception) {
+                        return null;
+                    }
+
+                case BOOL:
+                    return str.equalsIgnoreCase("true") ? true
+                            : str.equalsIgnoreCase("false") ? false
+                            : null;
+            }
+
+            return null;
         }
     }
 }

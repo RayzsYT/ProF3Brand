@@ -7,10 +7,10 @@ import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import de.rayzs.prof3brand.api.scheduler.SchedulerProvider;
 import de.rayzs.prof3brand.api.utils.VersionHelper;
+import de.rayzs.prof3brand.bukkit.impl.*;
 import de.rayzs.prof3brand.bukkit.listener.PlayerListener;
 import de.rayzs.prof3brand.bukkit.netty.BukkitPacketAnalyzer;
-import de.rayzs.prof3brand.impl.bukkit.*;
-import de.rayzs.prof3brand.impl.common.ImplProF3Brand;
+import de.rayzs.prof3brand.common.impl.ImplProF3Brand;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
@@ -32,6 +32,7 @@ public class ProF3BrandPlugin extends JavaPlugin {
 
         final ProF3Brand api = new ImplProF3Brand(
                 this,
+                getLogger(),
                 schedulerProvider,
                 brandPlayerProvider,
                 brandProvider,

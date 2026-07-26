@@ -1,7 +1,10 @@
 package de.rayzs.prof3brand.api.condition;
 
+import de.rayzs.prof3brand.api.ProF3Brand;
+import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.condition.operators.*;
 import de.rayzs.prof3brand.api.condition.operators.exceptions.ConditionException;
+import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 
 import java.util.*;
@@ -22,6 +25,8 @@ public class Conditions {
             new OrOrOperator(),
     };
 
+
+    private final PlaceholderProvider placeholderProvider = ProF3BrandProvider.get().getPlaceholderProvider();
 
     private final Map<ConditionOperator, int[]> operatorIndexes = new HashMap<>();
     private final Map<ConditionOperator, String> operatorStrings = new HashMap<>();
@@ -60,17 +65,36 @@ public class Conditions {
 
             try {
                 if (operatorIndexes[0] == operatorIndexes[1]) {
-                    final String right = str.substring(operatorIndexes[0]);
+                    final String rightStr = placeholderProvider.replace(player, str.substring(operatorIndexes[0]));
+                    final Object rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
 
-                    if (!operator.evaluate(right)) {
+                    if (rightObj == null) {
+                        ProF3BrandProvider.get().warn("Parameter is not of type " + operator.getInputType().name() + "! (" + rightStr + ", " + str + ")");
+                        return false;
+                    }
+
+                    if (!operator.evaluate(rightObj)) {
                         return false;
                     }
 
                 } else {
-                    final String left = str.substring(0, operatorIndexes[0]);
-                    final String right = str.substring(operatorIndexes[1]);
+                    final String leftStr = placeholderProvider.replace(player, str.substring(0, operatorIndexes[0]));
+                    final Object leftObj = operator.getInputType().validateIfPossible(Object.class, leftStr);
 
-                    if (!operator.evaluate(left, right)) {
+                    final String rightStr = placeholderProvider.replace(player, str.substring(operatorIndexes[1]));
+                    final Object rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
+
+                    if (leftObj == null) {
+                        ProF3BrandProvider.get().warn("Left-sided parameter is not of type " + operator.getInputType().name() + "! (" + leftStr + ", " + str + ")");
+                        return false;
+                    }
+
+                    if (rightObj == null) {
+                        ProF3BrandProvider.get().warn("Right-sided parameter is not of type " + operator.getInputType().name() + "! (" + rightStr + ", " + str + ")");
+                        return false;
+                    }
+
+                    if (!operator.evaluate(leftObj, rightObj)) {
                         return false;
                     }
                 }

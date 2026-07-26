@@ -5,7 +5,7 @@ import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import de.rayzs.prof3brand.bukkit.netty.BukkitPacketAnalyzer;
-import de.rayzs.prof3brand.impl.bukkit.ImplBukkitBrandProvider;
+import de.rayzs.prof3brand.bukkit.impl.ImplBukkitBrandProvider;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

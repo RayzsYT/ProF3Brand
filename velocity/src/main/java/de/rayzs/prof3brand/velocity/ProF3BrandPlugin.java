@@ -14,12 +14,13 @@ import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import de.rayzs.prof3brand.api.scheduler.SchedulerProvider;
 import de.rayzs.prof3brand.api.utils.VersionHelper;
-import de.rayzs.prof3brand.impl.common.ImplProF3Brand;
+import de.rayzs.prof3brand.common.impl.ImplProF3Brand;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocityBrandPlayerProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocityBrandProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocityPlaceholderProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocitySchedulerProvider;
-import org.slf4j.Logger;
+
+import java.util.logging.Logger;
 
 @Plugin(
         id = "prof3brand",
@@ -56,6 +57,7 @@ public class ProF3BrandPlugin {
 
         final ProF3Brand api = new ImplProF3Brand(
                 this,
+                logger,
                 schedulerProvider,
                 brandPlayerProvider,
                 brandProvider,

@@ -7,11 +7,11 @@ import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import de.rayzs.prof3brand.api.scheduler.SchedulerProvider;
 import de.rayzs.prof3brand.api.utils.VersionHelper;
-import de.rayzs.prof3brand.impl.bungee.ImplBungeeBrandPlayerProvider;
-import de.rayzs.prof3brand.impl.bungee.ImplBungeeBrandProvider;
-import de.rayzs.prof3brand.impl.bungee.ImplBungeePlaceholderProvider;
-import de.rayzs.prof3brand.impl.bungee.ImplBungeeSchedulerProvider;
-import de.rayzs.prof3brand.impl.common.ImplProF3Brand;
+import de.rayzs.prof3brand.bungee.impl.ImplBungeeBrandPlayerProvider;
+import de.rayzs.prof3brand.bungee.impl.ImplBungeeBrandProvider;
+import de.rayzs.prof3brand.bungee.impl.ImplBungeePlaceholderProvider;
+import de.rayzs.prof3brand.bungee.impl.ImplBungeeSchedulerProvider;
+import de.rayzs.prof3brand.common.impl.ImplProF3Brand;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class ProF3BrandPlugin extends Plugin {
@@ -28,6 +28,7 @@ public class ProF3BrandPlugin extends Plugin {
 
         final ProF3Brand api = new ImplProF3Brand(
                 this,
+                getLogger(),
                 schedulerProvider,
                 brandPlayerProvider,
                 brandProvider,

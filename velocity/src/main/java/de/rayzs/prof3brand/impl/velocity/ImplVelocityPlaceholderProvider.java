@@ -6,7 +6,11 @@ import de.rayzs.prof3brand.api.player.BrandPlayer;
 public class ImplVelocityPlaceholderProvider implements PlaceholderProvider {
 
     @Override
-    public String replace(BrandPlayer player, String text) {
+    public String replace(final BrandPlayer player, String text) {
+        if (text.charAt(0) != '%') {
+            return text;
+        }
+
         return text;
     }
 }

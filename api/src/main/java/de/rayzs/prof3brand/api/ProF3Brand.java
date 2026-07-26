@@ -16,7 +16,9 @@ public interface ProF3Brand {
 
     Object getPluginLoader();
 
-    void reload();
+    void info(final String text);
+    void warn(final String text);
 
+    void reload();
     void shutdown();
 }

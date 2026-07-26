@@ -23,18 +23,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>de.rayzs.prof3brand</groupId>
-            <artifactId>api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
 
-        <dependency>
-            <groupId>de.rayzs.prof3brand</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
+                            <artifactSet>
+                                <includes>
+                                    <include>de.rayzs.prof3brand:api</include>
+                                    <include>de.rayzs.prof3brand:common</include>
+                                </includes>
+                            </artifactSet>
+
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <finalName>${project.parent.artifactId}-${project.name}-${project.version}</finalName>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
