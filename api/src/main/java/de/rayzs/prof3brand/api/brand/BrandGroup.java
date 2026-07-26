@@ -38,14 +38,16 @@ public class BrandGroup {
         this.conditions = conditions;
         this.brands = brands;
         this.shuffle = shuffle;
-        this.repeatDelay = repeatDelay;
+        this.repeatDelay = brands.length == 0 ? -1 : brands.length == 1
+                ? (repeatDelay <= 0 ? 20 : repeatDelay)
+                : (repeatDelay <= 0 ? -1 : repeatDelay);
 
         this.currentBrandIndex = brands.length - 1;
 
         if (getRepeatDelay() != -1) this.task = schedulerProvider.createAsyncScheduler(task -> {
             update();
 
-            final Iterator<BrandPlayer> iterator = players.iterator();
+            final Iterator<BrandPlayer> iterator = this.players.iterator();
             final String brand = getBrand();
 
             while (iterator.hasNext()) {
@@ -56,34 +58,34 @@ public class BrandGroup {
     }
 
     public void addPlayer(final BrandPlayer player) {
-        players.add(player);
+        this.players.add(player);
     }
 
     public void removePlayer(final BrandPlayer player) {
-        players.remove(player);
+        this.players.remove(player);
     }
 
     public boolean fulfillsConditions(final BrandPlayer player) {
-        return conditions.evaluate(player);
+        return this.conditions.evaluate(player);
     }
 
     public void update() {
         if (shuffle) {
-            this.currentBrandIndex = RANDOM.nextInt(brands.length);
+            this.currentBrandIndex = RANDOM.nextInt(this.brands.length);
             return;
         }
 
         if (this.currentBrandIndex + 1 == brands.length) {
             this.currentBrandIndex = 0;
-        } else currentBrandIndex++;
+        } else this.currentBrandIndex++;
     }
 
     public int getRepeatDelay() {
-        return brands.length <= 1 ? -1 : repeatDelay;
+        return this.repeatDelay;
     }
 
     public void stopScheduler() {
-        task.stop();
+        this.task.stop();
     }
 
     public String getBrand() {
@@ -91,6 +93,6 @@ public class BrandGroup {
     }
 
     public String getBrandName() {
-        return brandName;
+        return this.brandName;
     }
 }

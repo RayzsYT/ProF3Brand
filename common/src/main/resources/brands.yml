@@ -1,13 +1,70 @@
-"admin":
+# ██████╗ ██████╗  █████╗ ███████╗██████╗ ██████╗ ██████╗  █████╗ ███╗  ██╗██████╗
+# ██╔══██╗██╔══██╗██╔══██╗██╔════╝╚════██╗██╔══██╗██╔══██╗██╔══██╗████╗ ██║██╔══██╗
+# ██████╔╝██████╔╝██║  ██║█████╗   █████╔╝██████╦╝██████╔╝███████║██╔██╗██║██║  ██║
+# ██╔═══╝ ██╔══██╗██║  ██║██╔══╝   ╚═══██╗██╔══██╗██╔══██╗██╔══██║██║╚████║██║  ██║
+# ██║     ██║  ██║╚█████╔╝██║     ██████╔╝██████╦╝██║  ██║██║  ██║██║ ╚███║██████╔╝
+# ╚═╝     ╚═╝  ╚═╝ ╚════╝ ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝╚═════╝
+#
+# System integrated condition placeholders:
+# Placeholder      Description           Example Outputs
+# --------------------------------------------------------------
+# BUKKIT
+#  %player%         Player name           Rayzs_YT
+#  %world%          Player world name     world/world_the_end...
+#  %gamemode%       Player gamemode       CREATIVE/SURVIVAL...
+#  %opped%          Player is opped?      true/false
+#  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+# PROXY
+#  %player%         Player name           Rayzs_YT
+#  %server_name%    Player server name    lobby/factions...
+#  %server_count%   Player gamemode       3
+# --------------------------------------------------------------
+# Of course also PlaceholderAPI placeholders.
+#
+
+"default":
   condition: ""
   shuffle: false
   repeat-delay: -1
   brands:
-    - "&eCustom Paper"
-"default":
-  condition: "%player_gamemode%==creative;%player_is_op%==yes"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Bran&ed"
+    - "&6ProF3Bra&en&fd"
+    - "&6ProF3Br&6a&en&fB&er&6and"
+    - "&6ProF3B&6r&ea&fn&eB&6rand"
+    - "&6ProF3&6B&er&fa&en&6Brand"
+    - "&6ProF&63&eB&fr&ea&6Brand"
+    - "&6Pro&6F&e3&fB&er&6aBrand"
+    - "&6Pro&eF&f3&eB&6rand"
+    - "&6Pr&eo&fF&63&eBrand"
+    - "&6P&er&fo&eF&63Brand"
+    - "&eP&fr&eo&6F3Brand"
+    - "&fP&er&6oF3Brand"
+    - "&eP&6roF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+
+"admin":
+  condition: "%gamemode%!=creative;%opped%"
   shuffle: false
   repeat-delay: 20
   brands:
-    - "&aWorld: %player_world%"
-    - "&eNice world"
+    - "&cADMIN"
+
+"admin-builder":
+  condition: "%gamemode%==creative;%opped%"
+  shuffle: false
+  repeat-delay: 20
+  brands:
+    - "&cADMIN BUILDER: &7You are in world: &e%world%"
+
+"builder":
+  condition: "%gamemode%==creative"
+  shuffle: false
+  repeat-delay: 20
+  brands:
+    - "&aBUILDER: &7You are in world: &e%world%"

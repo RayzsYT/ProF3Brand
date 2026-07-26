@@ -18,6 +18,7 @@ public class Conditions {
             new BiggerEqualsOperator(),
             new BiggerOperator(),
             new EqualsOperator(),
+            new NotEqualsOperator(),
             new LowerEqualsOperator(),
             new LowerOperator(),
             new NotOperator(),
