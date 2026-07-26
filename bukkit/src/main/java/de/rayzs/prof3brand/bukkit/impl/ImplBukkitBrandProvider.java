@@ -62,7 +62,7 @@ public class ImplBukkitBrandProvider implements BrandProvider {
             return;
         }
 
-        brandText = ChatColor.translateAlternateColorCodes('&', this.placeholderProvider.replace(player, brandText));
+        brandText = ChatColor.translateAlternateColorCodes('&', this.placeholderProvider.replace(player, brandText + "&r"));
 
         if (!VersionHelper.isAtLeast(1, 20, 6)) {
             final PacketUtils.BrandManipulate serverBrand = new PacketUtils.BrandManipulate(brandText);

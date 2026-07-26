@@ -41,7 +41,7 @@ public class ImplVelocityBrandProvider implements BrandProvider {
     public void send(final BrandPlayer player, String brandText) {
         if (! (player.getOriginObject() instanceof Player proxyPlayer)) return;
 
-        brandText = applyColors(brandText);
+        brandText = applyColors(brandText + "&r");
 
         try {
             final Object connectedPlayerObj = connectedPlayerConnectionClass.cast(player);

@@ -24,7 +24,7 @@ public class ImplBungeeBrandProvider implements BrandProvider {
             return;
         }
 
-        brandText = ChatColor.translateAlternateColorCodes('&', this.placeholderProvider.replace(player, brandText));
+        brandText = ChatColor.translateAlternateColorCodes('&', this.placeholderProvider.replace(player, brandText + "&r"));
 
         final PacketUtils.BrandManipulate serverBrand = new PacketUtils.BrandManipulate(brandText);
         final String brand = proxyPlayer.getPendingConnection().getVersion() >= ProtocolConstants.MINECRAFT_1_13
