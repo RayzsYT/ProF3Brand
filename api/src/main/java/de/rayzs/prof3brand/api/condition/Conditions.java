@@ -26,7 +26,7 @@ public class Conditions {
     };
 
 
-    private final PlaceholderProvider placeholderProvider = ProF3BrandProvider.get().getPlaceholderProvider();
+    private final PlaceholderProvider placeholderProvider;
 
     private final Map<ConditionOperator, int[]> operatorIndexes = new HashMap<>();
     private final Map<ConditionOperator, String> operatorStrings = new HashMap<>();
@@ -34,7 +34,8 @@ public class Conditions {
     private final ConditionOperator[] operators;
     private final String rawStr;
 
-    public Conditions(final String rawStr) {
+    public Conditions(final PlaceholderProvider placeholderProvider, final String rawStr) {
+        this.placeholderProvider = placeholderProvider;
         this.rawStr = rawStr.replace(" ", "");
 
 
@@ -45,10 +46,19 @@ public class Conditions {
             for (final String c : split) {
                 final int[] indexes = operator.findOperatorIndex(c);
 
-                operatorIndexes.put(operator, indexes);
-                operatorStrings.put(operator, c);
+                if (indexes[0] == -1) continue;
 
-                foundOperators.add(operator);
+
+                try {
+                    final ConditionOperator conditionOperator = operator.getClass().newInstance();
+
+                    operatorIndexes.put(conditionOperator, indexes);
+                    operatorStrings.put(conditionOperator, c);
+
+                    foundOperators.add(conditionOperator);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
             }
         }
 
@@ -58,9 +68,11 @@ public class Conditions {
     public boolean evaluate(final BrandPlayer player) {
         for (Map.Entry<ConditionOperator, int[]> entry : operatorIndexes.entrySet()) {
             final String str = operatorStrings.get(entry.getKey());
-
             final ConditionOperator operator = entry.getKey();
             final int[] operatorIndexes = entry.getValue();
+
+
+            if (str.isEmpty()) continue;
 
 
             try {
@@ -78,6 +90,7 @@ public class Conditions {
                     }
 
                 } else {
+
                     final String leftStr = placeholderProvider.replace(player, str.substring(0, operatorIndexes[0]));
                     final Object leftObj = operator.getInputType().validateIfPossible(Object.class, leftStr);
 

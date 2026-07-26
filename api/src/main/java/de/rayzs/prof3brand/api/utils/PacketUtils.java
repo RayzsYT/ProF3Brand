@@ -1,5 +1,7 @@
 package de.rayzs.prof3brand.api.utils;
 
+import de.rayzs.prof3brand.api.ProF3BrandProvider;
+import de.rayzs.prof3brand.api.player.BrandPlayer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -55,14 +57,16 @@ public class PacketUtils {
         private final byte[] bytes;
         private ByteBuf byteBuf;
 
-        public BrandManipulate(String brand) {
+        public BrandManipulate(final String brand) {
             this(brand, true);
         }
 
-        public BrandManipulate(String brand, boolean releaseBuffer) {
+        public BrandManipulate(final String brand, final boolean releaseBuffer) {
             this.brand = brand;
             this.capacity = brand.getBytes(StandardCharsets.UTF_8).length + 1;
             this.bytes = buildBytes(releaseBuffer);
+
+            System.out.println("... " + brand);
         }
 
         public byte[] getBytes() {

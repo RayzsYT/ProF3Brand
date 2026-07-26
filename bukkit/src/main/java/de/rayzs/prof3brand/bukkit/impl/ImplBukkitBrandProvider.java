@@ -1,13 +1,14 @@
 package de.rayzs.prof3brand.bukkit.impl;
 
-import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.brand.BrandProvider;
+import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.utils.PacketUtils;
 import de.rayzs.prof3brand.api.utils.VersionHelper;
 import de.rayzs.prof3brand.bukkit.netty.BukkitPacketAnalyzer;
 import io.netty.channel.Channel;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -21,12 +22,16 @@ public class ImplBukkitBrandProvider implements BrandProvider {
 
 
     private final String channelName = VersionHelper.isBefore(1, 13) ? "MC|Brand" : "minecraft:brand";
-    private final Plugin plugin = (Plugin) ProF3BrandProvider.get().getPluginLoader();
+    private final PlaceholderProvider placeholderProvider;
+    private final Plugin plugin;
 
     private Class<?> brandPayloadClass, clientBoundCustomPacketPayloadPacketClass, customPacketPayloadPacketClass;
 
 
-    public ImplBukkitBrandProvider() {
+    public ImplBukkitBrandProvider(final PlaceholderProvider placeholderProvider, final Plugin plugin) {
+        this.placeholderProvider = placeholderProvider;
+        this.plugin = plugin;
+
         try {
             brandPayloadClass = Class.forName("net.minecraft.network.protocol.common.custom.BrandPayload");
             clientBoundCustomPacketPayloadPacketClass = Class.forName("net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket");
@@ -37,8 +42,12 @@ public class ImplBukkitBrandProvider implements BrandProvider {
             final Messenger messenger = server.getMessenger();
 
             final Method method = messenger.getClass().getDeclaredMethod("addToOutgoing", Plugin.class, String.class);
+            method.setAccessible(true);
+
             method.invoke(messenger, plugin, channelName);
             messenger.registerOutgoingPluginChannel(plugin, channelName);
+
+            method.setAccessible(false);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -47,14 +56,17 @@ public class ImplBukkitBrandProvider implements BrandProvider {
 
 
     @Override
-    public void send(final BrandPlayer player, final String brandText) {
-        if (! (player instanceof Player bukkitPlayer)) {
+    public void send(final BrandPlayer player, String brandText) {
+
+        if (! (player.getOriginObject() instanceof Player bukkitPlayer)) {
             return;
         }
 
+        brandText = ChatColor.translateAlternateColorCodes('&', this.placeholderProvider.replace(player, brandText));
+
         if (!VersionHelper.isAtLeast(1, 20, 6)) {
             final PacketUtils.BrandManipulate serverBrand = new PacketUtils.BrandManipulate(brandText);
-            bukkitPlayer.sendPluginMessage(plugin, channelName, serverBrand.getBytes());
+            bukkitPlayer.sendPluginMessage(this.plugin, this.channelName, serverBrand.getBytes());
             return;
         }
 
@@ -65,12 +77,12 @@ public class ImplBukkitBrandProvider implements BrandProvider {
                 return;
             }
 
-            final Object brandPayloadObj = brandPayloadClass
+            final Object brandPayloadObj = this.brandPayloadClass
                     .getDeclaredConstructor(String.class)
                     .newInstance(brandText);
 
-            final Object customPacketPayloadPacket = clientBoundCustomPacketPayloadPacketClass
-                    .getDeclaredConstructor(customPacketPayloadPacketClass)
+            final Object customPacketPayloadPacket = this.clientBoundCustomPacketPayloadPacketClass
+                    .getDeclaredConstructor(this.customPacketPayloadPacketClass)
                     .newInstance(brandPayloadObj);
 
             channel.pipeline().writeAndFlush(customPacketPayloadPacket);

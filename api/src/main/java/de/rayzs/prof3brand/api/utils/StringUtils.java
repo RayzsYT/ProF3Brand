@@ -13,12 +13,13 @@ public class StringUtils {
      * @return Index of the last letter of the first found match. -1 if nothing is found.
      */
     public static int searchIndex(final String searching, final String source) {
-        char[] sourceChars = source.toCharArray();
+        final char[] sourceChars = source.toCharArray();
+        final int searchLength = searching.length();
 
         int s = 0;
         for (int i = 0; i < sourceChars.length; i++) {
-            if (s == searching.length()) {
-                return i;
+            if (s == searchLength) {
+                return i - searchLength;
             }
 
             if (sourceChars[i] != searching.charAt(s)) {

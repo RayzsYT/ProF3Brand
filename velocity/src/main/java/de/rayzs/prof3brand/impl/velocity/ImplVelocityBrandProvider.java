@@ -3,21 +3,28 @@ package de.rayzs.prof3brand.impl.velocity;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import de.rayzs.prof3brand.api.brand.BrandProvider;
+import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.utils.PacketUtils;
 import io.netty.buffer.ByteBuf;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.lang.reflect.Method;
 
 public class ImplVelocityBrandProvider implements BrandProvider {
 
-    private final ProxyServer server;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
+
+    private final PlaceholderProvider placeholderProvider;
+
     private Class<?> pluginMessagePacketClass, minecraftConnectionClass, connectedPlayerConnectionClass;
     private Method connectionMethod;
 
 
-    public ImplVelocityBrandProvider(final ProxyServer server) {
-        this.server = server;
+    public ImplVelocityBrandProvider(final PlaceholderProvider placeholderProvider) {
+        this.placeholderProvider = placeholderProvider;
 
         try {
             this.pluginMessagePacketClass = Class.forName("com.velocitypowered.proxy.protocol.packet.PluginMessagePacket");
@@ -31,8 +38,10 @@ public class ImplVelocityBrandProvider implements BrandProvider {
 
 
     @Override
-    public void send(final BrandPlayer player, final String brandText) {
+    public void send(final BrandPlayer player, String brandText) {
         if (! (player.getOriginObject() instanceof Player proxyPlayer)) return;
+
+        brandText = applyColors(brandText);
 
         try {
             final Object connectedPlayerObj = connectedPlayerConnectionClass.cast(player);
@@ -53,5 +62,12 @@ public class ImplVelocityBrandProvider implements BrandProvider {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    private String applyColors(final String text) {
+        final Component legacy = LegacyComponentSerializer.legacyAmpersand().deserialize(text.replaceFirst("§", "&"));
+        return miniMessage.serialize(miniMessage.deserialize(
+                miniMessage.serialize(legacy).replace("\\", "")
+        ));
     }
 }

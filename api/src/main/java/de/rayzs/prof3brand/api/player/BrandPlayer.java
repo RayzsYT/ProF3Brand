@@ -7,6 +7,8 @@ public interface BrandPlayer {
     UUID getUniqueId();
     String getName();
 
+    boolean isOnline();
+
     Object getOriginObject();
 
     void updateBrand(String brand);

@@ -9,11 +9,15 @@ import java.util.Objects;
 public class EqualsOperator extends ConditionOperator {
 
     public EqualsOperator() {
-        super(ConditionInputType.ALL, "==", "equals", "is", "like");
+        super(ConditionInputType.STR, "==", "equals", "is", "like");
     }
 
     @Override
     public boolean evaluate(final Object objA, final Object objB) throws ConditionException {
+        if (objA instanceof String a && objB instanceof String b) {
+            return a.equalsIgnoreCase(b);
+        }
+
         return Objects.equals(objA, objB);
     }
 

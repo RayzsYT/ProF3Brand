@@ -2,7 +2,7 @@ package de.rayzs.prof3brand.impl.velocity;
 
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
-import de.rayzs.prof3brand.api.ProF3BrandProvider;
+import de.rayzs.prof3brand.api.brand.BrandProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 
@@ -12,10 +12,14 @@ import java.util.UUID;
 
 public class ImplVelocityBrandPlayerProvider implements BrandPlayerProvider {
 
+    private final BrandProvider brandProvider;
     private final ProxyServer proxyServer;
+
     private HashMap<UUID, BrandPlayer> players = new HashMap<>();
 
-    public ImplVelocityBrandPlayerProvider(final ProxyServer proxyServer) {
+
+    public ImplVelocityBrandPlayerProvider(final BrandProvider brandProvider, final ProxyServer proxyServer) {
+        this.brandProvider = brandProvider;
         this.proxyServer = proxyServer;
     }
 
@@ -61,7 +65,7 @@ public class ImplVelocityBrandPlayerProvider implements BrandPlayerProvider {
         this.players = null;
     }
 
-    private static class ImplBrandPlayer implements BrandPlayer {
+    private class ImplBrandPlayer implements BrandPlayer {
 
         private final Player player;
         private final UUID uuid;
@@ -84,13 +88,18 @@ public class ImplVelocityBrandPlayerProvider implements BrandPlayerProvider {
         }
 
         @Override
+        public boolean isOnline() {
+            return this.player.isActive();
+        }
+
+        @Override
         public Object getOriginObject() {
             return this.player;
         }
 
         @Override
         public void updateBrand(final String brand) {
-            ProF3BrandProvider.get().getBrandProvider().send(this, brand);
+            brandProvider.send(this, brand);
         }
     }
 }

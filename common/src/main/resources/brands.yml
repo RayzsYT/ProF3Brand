@@ -1,11 +1,13 @@
 "admin":
   condition: ""
   shuffle: false
+  repeat-delay: -1
   brands:
     - "&eCustom Paper"
 "default":
-  condition: "%player_gamemode%==creative;%player_is_op%==true"
+  condition: "%player_gamemode%==CREATIVE;%player_is_op%==yes"
   shuffle: false
+  repeat-delay: 20
   brands:
     - "&aWorld: %player_world%"
     - "&eNice world"

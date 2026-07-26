@@ -15,6 +15,11 @@ public interface Config {
     void save();
 
     /**
+     * If file exists.
+     */
+    boolean exist();
+
+    /**
      * Sets a value.
      *
      * @param path Path to the section.

@@ -20,11 +20,10 @@ public class ProF3BrandPlugin extends Plugin {
     public void onEnable() {
         VersionHelper.initialize(null);
 
-        final BrandPlayerProvider brandPlayerProvider = new ImplBungeeBrandPlayerProvider();
-        final BrandProvider brandProvider = new ImplBungeeBrandProvider();
-        final SchedulerProvider schedulerProvider = new ImplBungeeSchedulerProvider(this);
-
         final PlaceholderProvider placeholderProvider = new ImplBungeePlaceholderProvider();
+        final BrandProvider brandProvider = new ImplBungeeBrandProvider(placeholderProvider);
+        final BrandPlayerProvider brandPlayerProvider = new ImplBungeeBrandPlayerProvider(brandProvider);
+        final SchedulerProvider schedulerProvider = new ImplBungeeSchedulerProvider(this);
 
         final ProF3Brand api = new ImplProF3Brand(
                 this,

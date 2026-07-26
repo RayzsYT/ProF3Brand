@@ -1,7 +1,6 @@
 package de.rayzs.prof3brand.api.condition;
 
 import de.rayzs.prof3brand.api.condition.operators.exceptions.ConditionException;
-import de.rayzs.prof3brand.api.condition.operators.exceptions.InvalidParametersException;
 import de.rayzs.prof3brand.api.utils.StringUtils;
 
 public abstract class ConditionOperator {
@@ -30,7 +29,7 @@ public abstract class ConditionOperator {
             final int index = StringUtils.searchIndex(operatorStr, str);
             if (index == -1) continue;
 
-            return new int[] {index, index + operatorStr.length() - 1};
+            return new int[] {index, index + operatorStr.length()};
         }
 
         return new int[] {-1};
@@ -42,14 +41,12 @@ public abstract class ConditionOperator {
 
 
     public enum ConditionInputType {
-        BOOL, NUM, STR,
-        ALL;
-
+        BOOL, NUM, STR;
 
         ConditionInputType() {}
 
         public <T> T validateIfPossible(final Class<T> type, final String str) {
-            final Object validatedObj = validate(str);
+            Object validatedObj = validate(str);
 
             if (type.isInstance(validatedObj)) {
                 return type.cast(validatedObj);

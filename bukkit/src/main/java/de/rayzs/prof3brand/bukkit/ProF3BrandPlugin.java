@@ -22,13 +22,12 @@ public class ProF3BrandPlugin extends JavaPlugin {
     public void onEnable() {
         VersionHelper.initialize(Bukkit.getBukkitVersion());
 
-        final BrandPlayerProvider brandPlayerProvider = new ImplBukkitBrandPlayerProvider();
-        final BrandProvider brandProvider = new ImplBukkitBrandProvider();
+        final PlaceholderProvider placeholderProvider = new ImplBukkitPlaceholderProvider();
+        final BrandProvider brandProvider = new ImplBukkitBrandProvider(placeholderProvider, this);
+        final BrandPlayerProvider brandPlayerProvider = new ImplBukkitBrandPlayerProvider(brandProvider);
         final SchedulerProvider schedulerProvider = VersionHelper.isFolia()
                 ? new ImplFoliaSchedulerProvider(this)
                 : new ImplBukkitSchedulerProvider(this);
-
-        final PlaceholderProvider placeholderProvider = new ImplBukkitPlaceholderProvider();
 
         final ProF3Brand api = new ImplProF3Brand(
                 this,

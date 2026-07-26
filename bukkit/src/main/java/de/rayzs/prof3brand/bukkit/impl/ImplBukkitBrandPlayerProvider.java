@@ -1,6 +1,6 @@
 package de.rayzs.prof3brand.bukkit.impl;
 
-import de.rayzs.prof3brand.api.ProF3BrandProvider;
+import de.rayzs.prof3brand.api.brand.BrandProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import org.bukkit.Bukkit;
@@ -8,12 +8,18 @@ import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.UUID;
 
 public class ImplBukkitBrandPlayerProvider implements BrandPlayerProvider {
 
+    private final BrandProvider brandProvider;
+
     private HashMap<UUID, BrandPlayer> players = new HashMap<>();
+
+
+    public ImplBukkitBrandPlayerProvider(final BrandProvider brandProvider) {
+        this.brandProvider = brandProvider;
+    }
 
     @Override
     public <T> BrandPlayer convertPlayer(final T player) {
@@ -57,7 +63,7 @@ public class ImplBukkitBrandPlayerProvider implements BrandPlayerProvider {
         this.players = null;
     }
 
-    private static class ImplBrandPlayer implements BrandPlayer {
+    private class ImplBrandPlayer implements BrandPlayer {
 
         private final Player player;
         private final UUID uuid;
@@ -80,13 +86,18 @@ public class ImplBukkitBrandPlayerProvider implements BrandPlayerProvider {
         }
 
         @Override
+        public boolean isOnline() {
+            return this.player.isOnline();
+        }
+
+        @Override
         public Object getOriginObject() {
             return this.player;
         }
 
         @Override
         public void updateBrand(final String brand) {
-            ProF3BrandProvider.get().getBrandProvider().send(this, brand);
+            brandProvider.send(this, brand);
         }
     }
 }

@@ -19,21 +19,20 @@ public class ImplConfig implements Config {
         this.fileName = fileName;
         this.filePath = filePath;
 
-        load();
-    }
-
-    private void load() {
-        try {
-            this.file = new File(filePath, fileName + ".yml");
-            this.configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
+        reload();
     }
 
     @Override
     public void reload() {
-        load();
+        try {
+            this.file = new File(filePath, fileName + ".yml");
+            if (this.file.exists()) {
+                this.configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     @Override
@@ -43,6 +42,11 @@ public class ImplConfig implements Config {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean exist() {
+        return this.file.exists();
     }
 
     @Override

@@ -32,7 +32,7 @@ public class ImplProF3Brand implements ProF3Brand {
             final BrandPlayerProvider playerProvider,
             final BrandProvider brandProvider,
             final PlaceholderProvider placeholderProvider
-            ) {
+    ) {
 
         this.pluginLoader = pluginLoader;
         this.logger = logger;
@@ -44,7 +44,12 @@ public class ImplProF3Brand implements ProF3Brand {
         this.placeholderProvider = placeholderProvider;
 
 
-        this.brandGroupHandler = new BrandGroupHandler(configProvider.getOrCreate("brands"));
+        this.brandGroupHandler = new BrandGroupHandler(
+                schedulerProvider,
+                playerProvider,
+                placeholderProvider,
+                configProvider.getOrCreate("brands")
+        );
 
 
         this.schedulerProvider.createAsyncScheduler(task -> {

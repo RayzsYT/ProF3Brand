@@ -50,10 +50,10 @@ public class ProF3BrandPlugin {
     public void onProxyInitialization(ProxyInitializeEvent event) {
         VersionHelper.initialize(null);
 
-        final BrandPlayerProvider brandPlayerProvider = new ImplVelocityBrandPlayerProvider(server);
-        final BrandProvider brandProvider = new ImplVelocityBrandProvider(server);
-        final SchedulerProvider schedulerProvider = new ImplVelocitySchedulerProvider(this, server);
         final PlaceholderProvider placeholderProvider = new ImplVelocityPlaceholderProvider();
+        final BrandProvider brandProvider = new ImplVelocityBrandProvider(placeholderProvider);
+        final BrandPlayerProvider brandPlayerProvider = new ImplVelocityBrandPlayerProvider(brandProvider, server);
+        final SchedulerProvider schedulerProvider = new ImplVelocitySchedulerProvider(this, server);
 
         final ProF3Brand api = new ImplProF3Brand(
                 this,
