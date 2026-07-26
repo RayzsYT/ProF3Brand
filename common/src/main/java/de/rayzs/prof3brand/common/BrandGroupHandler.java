@@ -6,7 +6,6 @@ import de.rayzs.prof3brand.api.config.Config;
 import de.rayzs.prof3brand.api.config.ConfigProvider;
 import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
-import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import de.rayzs.prof3brand.api.scheduler.SchedulerProvider;
 
 import java.util.*;
@@ -14,7 +13,6 @@ import java.util.*;
 public class BrandGroupHandler {
 
     private final SchedulerProvider schedulerProvider;
-    private final BrandPlayerProvider brandPlayerProvider;
     private final PlaceholderProvider placeholderProvider;
 
     private final Map<UUID, BrandGroup> groups = new HashMap<>();
@@ -25,12 +23,10 @@ public class BrandGroupHandler {
 
     public BrandGroupHandler(
             final SchedulerProvider schedulerProvider,
-            final BrandPlayerProvider brandPlayerProvider,
             final PlaceholderProvider placeholderProvider,
             final Config config
     ) {
         this.schedulerProvider = schedulerProvider;
-        this.brandPlayerProvider = brandPlayerProvider;
         this.placeholderProvider = placeholderProvider;
         this.config = config;
 
@@ -50,7 +46,8 @@ public class BrandGroupHandler {
         this.config.reload();
 
 
-        final List<BrandGroup> brandGroups = new ArrayList<>();
+        final List<BrandGroup> brandGroupsWithoutConditions = new ArrayList<>();
+        final List<BrandGroup> brandGroupsWithConditions = new ArrayList<>();
 
         for (String key : this.config.getKeys(false)) {
             if (key.contains(".")) {
@@ -72,10 +69,20 @@ public class BrandGroupHandler {
                     repeatDelay
             );
 
-            brandGroups.add(brandGroup);
+            (conditions.isEmpty() ? brandGroupsWithoutConditions : brandGroupsWithConditions).add(brandGroup);
         }
 
-        this.brandGroups = brandGroups.toArray(new BrandGroup[0]);
+
+        final BrandGroup[] brandGroups = new BrandGroup[brandGroupsWithConditions.size() + brandGroupsWithoutConditions.size()];
+
+        int i = 0;
+        for (final BrandGroup group : brandGroupsWithConditions)
+            brandGroups[i++] = group;
+
+        for (final BrandGroup group : brandGroupsWithoutConditions)
+            brandGroups[i++] = group;
+
+        this.brandGroups = brandGroups;
     }
 
     public void reevaluatePlayerBrandGroups(final BrandPlayer player) {

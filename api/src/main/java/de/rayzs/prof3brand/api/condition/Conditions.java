@@ -77,7 +77,7 @@ public class Conditions {
 
             try {
                 if (operatorIndexes[0] == operatorIndexes[1]) {
-                    final String rightStr = placeholderProvider.replace(player, str.substring(operatorIndexes[0]));
+                    final String rightStr = replacePlaceholdersIfPossible(player, str.substring(operatorIndexes[0]));
                     final Object rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
 
                     if (rightObj == null) {
@@ -91,10 +91,10 @@ public class Conditions {
 
                 } else {
 
-                    final String leftStr = placeholderProvider.replace(player, str.substring(0, operatorIndexes[0]));
+                    final String leftStr = replacePlaceholdersIfPossible(player, str.substring(0, operatorIndexes[0]));
                     final Object leftObj = operator.getInputType().validateIfPossible(Object.class, leftStr);
 
-                    final String rightStr = placeholderProvider.replace(player, str.substring(operatorIndexes[1]));
+                    final String rightStr = replacePlaceholdersIfPossible(player, str.substring(operatorIndexes[1]));
                     final Object rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
 
                     if (leftObj == null) {
@@ -117,5 +117,9 @@ public class Conditions {
         }
 
         return true;
+    }
+
+    private String replacePlaceholdersIfPossible(final BrandPlayer player, final String str) {
+        return str.charAt(0) == '%' ? this.placeholderProvider.replace(player, str) : str;
     }
 }

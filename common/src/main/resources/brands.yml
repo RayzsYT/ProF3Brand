@@ -5,7 +5,7 @@
   brands:
     - "&eCustom Paper"
 "default":
-  condition: "%player_gamemode%==CREATIVE;%player_is_op%==yes"
+  condition: "%player_gamemode%==creative;%player_is_op%==yes"
   shuffle: false
   repeat-delay: 20
   brands:
