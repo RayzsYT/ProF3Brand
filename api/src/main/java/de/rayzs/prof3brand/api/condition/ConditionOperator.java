@@ -68,8 +68,8 @@ public abstract class ConditionOperator {
                     }
 
                 case BOOL:
-                    return str.equalsIgnoreCase("true") ? true
-                            : str.equalsIgnoreCase("false") ? false
+                    return str.equalsIgnoreCase("true") ? Boolean.TRUE
+                            : str.equalsIgnoreCase("false") ? Boolean.FALSE
                             : null;
             }
 

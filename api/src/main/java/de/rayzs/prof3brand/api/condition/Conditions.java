@@ -21,7 +21,7 @@ public class Conditions {
             new NotEqualsOperator(),
             new LowerEqualsOperator(),
             new LowerOperator(),
-            new NotOperator(),
+            //new NotOperator(),
             new OrOperator(),
             new OrOrOperator(),
     };

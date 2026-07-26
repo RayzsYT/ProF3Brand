@@ -25,7 +25,7 @@
 "default":
   condition: ""
   shuffle: false
-  repeat-delay: -1
+  repeat-delay: 3
   brands:
     - "&6ProF3Brand"
     - "&6ProF3Brand"
@@ -49,22 +49,22 @@
     - "&6ProF3Brand"
 
 "admin":
-  condition: "%gamemode%!=creative;%opped%"
+  condition: "%gamemode%!=creative;%opped% is true"
   shuffle: false
-  repeat-delay: 20
+  repeat-delay: -1
   brands:
     - "&cADMIN"
 
 "admin-builder":
-  condition: "%gamemode%==creative;%opped%"
+  condition: "%gamemode%==creative;%opped% is true"
   shuffle: false
-  repeat-delay: 20
+  repeat-delay: -1
   brands:
     - "&cADMIN BUILDER: &7You are in world: &e%world%"
 
 "builder":
   condition: "%gamemode%==creative"
   shuffle: false
-  repeat-delay: 20
+  repeat-delay: -1
   brands:
     - "&aBUILDER: &7You are in world: &e%world%"
