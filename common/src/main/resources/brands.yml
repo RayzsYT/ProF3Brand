@@ -57,7 +57,7 @@
 # --- CONDITION OPERATORS ---
 #
 # Operator(s)                                    Description                         Example
-# -----------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------
 #  ==, equals, is, like                           A and B are the same                %gamemode% == creative
 #  !=, not equals, is not, isn't, unlike          A and B are not the same            %opped% != true
 #  >, bigger than                                 A is bigger than B                  %vault_eco_balance% > 10
@@ -66,7 +66,7 @@
 #  <=, lower-equals than                          A is lower or equal to B            %vault_eco_balance% <= 10
 #  &&, and                                        A and B say both 'true'             %alive% == %opped%
 #  ||, or                                         A or B says 'true'                  %alive% || %opped%
-# ----------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------
 
 "default":
   # No conditions required
@@ -111,7 +111,7 @@
 
 "admin":
   # Required the player to be OP and NOT in creative mode.
-  condition: "%gamemode%!=creative;%opped% is true"
+  condition: "%gamemode%!=creative;%opped% == true"
 
   # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
