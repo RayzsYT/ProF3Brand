@@ -65,8 +65,6 @@ public class PacketUtils {
             this.brand = brand;
             this.capacity = brand.getBytes(StandardCharsets.UTF_8).length + 1;
             this.bytes = buildBytes(releaseBuffer);
-
-            System.out.println("... " + brand);
         }
 
         public byte[] getBytes() {
