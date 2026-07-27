@@ -22,8 +22,8 @@ import de.rayzs.prof3brand.impl.velocity.ImplVelocityBrandPlayerProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocityBrandProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocityPlaceholderProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocitySchedulerProvider;
+import de.rayzs.prof3brand.velocity.listener.PlayerListener;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.aopalliance.intercept.Invocation;
 
 import java.util.logging.Logger;
 
@@ -60,7 +60,7 @@ public class ProF3BrandPlugin {
         final BrandPlayerProvider brandPlayerProvider = new ImplVelocityBrandPlayerProvider(brandProvider, server);
         final SchedulerProvider schedulerProvider = new ImplVelocitySchedulerProvider(this, server);
 
-        final ProF3Brand api = new ImplProF3Brand(
+        final ImplProF3Brand api = new ImplProF3Brand(
                 this,
                 this.logger,
                 schedulerProvider,
@@ -70,6 +70,8 @@ public class ProF3BrandPlugin {
         );
         ProF3BrandProvider.set(api);
 
+
+        manager.register(this, new PlayerListener(api));
 
         final PluginContainer pluginContainer = this.server.getPluginManager().getPlugin("prof3brand").get();
         final String pluginVersion = pluginContainer.getDescription().getVersion().get();
