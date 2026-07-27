@@ -17,8 +17,8 @@ public class PlayerListener {
     private final BrandPlayerProvider playerProvider;
     private final BrandGroupHandler brandGroupHandler;
 
-    public PlayerListener(final ProF3Brand instance) {
-        this.instance = (ImplProF3Brand) instance;
+    public PlayerListener(final ImplProF3Brand instance) {
+        this.instance = instance;
         this.playerProvider = instance.getPlayerProvider();
         this.brandGroupHandler = this.instance.getBrandGroupHandler();
     }

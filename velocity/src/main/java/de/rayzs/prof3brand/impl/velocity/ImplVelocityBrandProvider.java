@@ -44,7 +44,7 @@ public class ImplVelocityBrandProvider implements BrandProvider {
         brandText = applyColors(brandText + "&r");
 
         try {
-            final Object connectedPlayerObj = connectedPlayerConnectionClass.cast(player);
+            final Object connectedPlayerObj = connectedPlayerConnectionClass.cast(player.getOriginObject());
             final Object minecraftConnectionObj = connectionMethod.invoke(connectedPlayerObj);
 
             final PacketUtils.BrandManipulate serverBrand = new PacketUtils.BrandManipulate(brandText, false);
@@ -65,9 +65,7 @@ public class ImplVelocityBrandProvider implements BrandProvider {
     }
 
     private String applyColors(final String text) {
-        final Component legacy = LegacyComponentSerializer.legacyAmpersand().deserialize(text.replaceFirst("§", "&"));
-        return miniMessage.serialize(miniMessage.deserialize(
-                miniMessage.serialize(legacy).replace("\\", "")
-        ));
+        // Implementation using MiniMessage some other time...
+        return text.replace("&", "§");
     }
 }
