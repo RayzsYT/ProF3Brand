@@ -15,9 +15,9 @@ public class ImplBungeePlaceholderProvider implements PlaceholderProvider {
             final String playerName = proxyPlayer.getName();
 
             final Server server = proxyPlayer.getServer();
-            final String serverName = server.getInfo().getName();
+            final String serverName = server != null ? server.getInfo().getName() : "";
 
-            final int serverPlayerCount = server.getInfo().getPlayers().size();
+            final int serverPlayerCount = server != null ? server.getInfo().getPlayers().size() : 0;
 
 
             text = text
