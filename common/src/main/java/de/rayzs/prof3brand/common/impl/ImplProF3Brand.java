@@ -45,6 +45,7 @@ public class ImplProF3Brand implements ProF3Brand {
 
 
         this.brandGroupHandler = new BrandGroupHandler(
+                this,
                 schedulerProvider,
                 placeholderProvider,
                 configProvider.getOrCreate("brands")

@@ -1,5 +1,6 @@
 package de.rayzs.prof3brand.common;
 
+import de.rayzs.prof3brand.api.ProF3Brand;
 import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.brand.BrandGroup;
 import de.rayzs.prof3brand.api.condition.Conditions;
@@ -13,6 +14,7 @@ import java.util.*;
 
 public class BrandGroupHandler {
 
+    private final ProF3Brand instance;
     private final SchedulerProvider schedulerProvider;
     private final PlaceholderProvider placeholderProvider;
 
@@ -23,10 +25,12 @@ public class BrandGroupHandler {
 
 
     public BrandGroupHandler(
+            final ProF3Brand instance,
             final SchedulerProvider schedulerProvider,
             final PlaceholderProvider placeholderProvider,
             final Config config
     ) {
+        this.instance = instance;
         this.schedulerProvider = schedulerProvider;
         this.placeholderProvider = placeholderProvider;
         this.config = config;
@@ -89,7 +93,7 @@ public class BrandGroupHandler {
         this.brandGroups = brandGroups;
 
 
-        ProF3BrandProvider.get().info("Loaded " + brandGroups.length + " brand groups in total! (" + (System.currentTimeMillis() - startTime) + ")");
+        this.instance.info("Loaded " + brandGroups.length + " brand groups in total! (" + (System.currentTimeMillis() - startTime) + ")");
     }
 
     public void removePlayer(final BrandPlayer player) {
