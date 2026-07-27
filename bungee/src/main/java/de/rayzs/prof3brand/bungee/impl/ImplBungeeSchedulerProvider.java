@@ -32,7 +32,7 @@ public class ImplBungeeSchedulerProvider implements SchedulerProvider {
             }
 
             scheduler.accept(schedulerTask);
-        }, 0, TimeUnit.MILLISECONDS);
+        }, 1, TimeUnit.MILLISECONDS);
 
         return schedulerTask;
     }

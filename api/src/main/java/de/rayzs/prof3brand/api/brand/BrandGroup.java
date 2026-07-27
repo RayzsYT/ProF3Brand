@@ -39,12 +39,12 @@ public class BrandGroup {
         this.brands = brands;
         this.shuffle = shuffle;
         this.repeatDelay = brands.length == 0 ? -1 : brands.length == 1
-                ? (repeatDelay <= 0 ? 20 : repeatDelay)
-                : (repeatDelay <= 0 ? -1 : repeatDelay);
+                ? (repeatDelay <= 0 ? (this.brands[0].contains("%") ? 10 : -1) : repeatDelay)
+                : (repeatDelay == -1 ? -1 : repeatDelay <= 0 ? 10 : repeatDelay);
 
         this.currentBrandIndex = brands.length - 1;
 
-        if (getRepeatDelay() != -1) this.task = schedulerProvider.createAsyncScheduler(task -> {
+        if (this.repeatDelay != -1) this.task = schedulerProvider.createAsyncScheduler(task -> {
             update();
 
             final Iterator<BrandPlayer> iterator = this.players.iterator();
@@ -54,7 +54,7 @@ public class BrandGroup {
                 final BrandPlayer player = iterator.next();
                 player.updateBrand(brand);
             }
-        }, 0, repeatDelay);
+        }, 1, this.repeatDelay);
     }
 
     public void addPlayer(final BrandPlayer player) {

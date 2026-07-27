@@ -6,6 +6,7 @@ main: de.rayzs.prof3brand.bukkit.ProF3BrandPlugin
 
 author: Rayzs_YT
 description: Fully customize the F3 server brand to your personal liking.
+folia-supported: true
 
 softdepend: ["PlaceholderAPI", "LuckPerms"]
 
