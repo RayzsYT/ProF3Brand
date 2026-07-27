@@ -1,5 +1,6 @@
 package de.rayzs.prof3brand.common;
 
+import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.brand.BrandGroup;
 import de.rayzs.prof3brand.api.condition.Conditions;
 import de.rayzs.prof3brand.api.config.Config;
@@ -34,9 +35,9 @@ public class BrandGroupHandler {
     }
 
     public void reload() {
+        final long startTime = System.currentTimeMillis();
+
         this.groups.clear();
-
-
         if (this.brandGroups != null) for (BrandGroup brandGroup : this.brandGroups) {
             brandGroup.stopScheduler();
         }
@@ -86,6 +87,9 @@ public class BrandGroupHandler {
             brandGroups[i++] = group;
 
         this.brandGroups = brandGroups;
+
+
+        ProF3BrandProvider.get().info("Loaded " + brandGroups.length + " brand groups in total! (" + (System.currentTimeMillis() - startTime) + ")");
     }
 
     public void removePlayer(final BrandPlayer player) {
