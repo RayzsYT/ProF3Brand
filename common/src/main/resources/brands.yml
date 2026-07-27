@@ -25,8 +25,15 @@
 "default":
   condition: ""
   shuffle: false
-  repeat-delay: 3
+  repeat-delay: 1
   brands:
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
     - "&6ProF3Brand"
     - "&6ProF3Brand"
     - "&6ProF3Brand"
@@ -34,17 +41,20 @@
     - "&6ProF3Brand"
     - "&6ProF3Bran&ed"
     - "&6ProF3Bra&en&fd"
-    - "&6ProF3Br&6a&en&fB&er&6and"
-    - "&6ProF3B&6r&ea&fn&eB&6rand"
-    - "&6ProF3&6B&er&fa&en&6Brand"
-    - "&6ProF&63&eB&fr&ea&6Brand"
-    - "&6Pro&6F&e3&fB&er&6aBrand"
+    - "&6ProF3Br&ea&fn&ed"
+    - "&6ProF3B&er&fa&en&6d"
+    - "&6ProF3&eB&fr&ea&6nd"
+    - "&6ProF&e3&fB&er&6and"
     - "&6Pro&eF&f3&eB&6rand"
-    - "&6Pr&eo&fF&63&eBrand"
+    - "&6Pr&eo&fF&e3&6Brand"
     - "&6P&er&fo&eF&63Brand"
     - "&eP&fr&eo&6F3Brand"
     - "&fP&er&6oF3Brand"
     - "&eP&6roF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
+    - "&6ProF3Brand"
     - "&6ProF3Brand"
     - "&6ProF3Brand"
 

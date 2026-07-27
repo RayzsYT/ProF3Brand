@@ -11,8 +11,11 @@ import de.rayzs.prof3brand.bungee.impl.ImplBungeeBrandPlayerProvider;
 import de.rayzs.prof3brand.bungee.impl.ImplBungeeBrandProvider;
 import de.rayzs.prof3brand.bungee.impl.ImplBungeePlaceholderProvider;
 import de.rayzs.prof3brand.bungee.impl.ImplBungeeSchedulerProvider;
+import de.rayzs.prof3brand.bungee.listener.PlayerListener;
 import de.rayzs.prof3brand.common.impl.ImplProF3Brand;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.api.plugin.PluginManager;
 
 public class ProF3BrandPlugin extends Plugin {
 
@@ -34,6 +37,10 @@ public class ProF3BrandPlugin extends Plugin {
                 placeholderProvider
         );
         ProF3BrandProvider.set(api);
+
+
+        final PluginManager manager = ProxyServer.getInstance().getPluginManager();
+        manager.registerListener(this, new PlayerListener(api));
     }
 
     @Override

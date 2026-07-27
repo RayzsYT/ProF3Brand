@@ -40,9 +40,12 @@ public class ProF3BrandPlugin extends JavaPlugin {
         ProF3BrandProvider.set(api);
 
         final PluginManager manager = getServer().getPluginManager();
-        manager.registerEvents(new PlayerListener(), this);
+        manager.registerEvents(new PlayerListener(api), this);
 
-        Bukkit.getOnlinePlayers().forEach(BukkitPacketAnalyzer::getPlayerChannel);
+        Bukkit.getOnlinePlayers().forEach(bukkitPlayer -> {
+            BukkitPacketAnalyzer.getPlayerChannel(bukkitPlayer);
+            brandPlayerProvider.convertPlayer(bukkitPlayer);
+        });
     }
 
     @Override

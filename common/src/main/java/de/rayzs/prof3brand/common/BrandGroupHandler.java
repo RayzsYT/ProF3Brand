@@ -61,9 +61,9 @@ public class BrandGroupHandler {
 
 
             final BrandGroup brandGroup = new BrandGroup(
-                    schedulerProvider,
+                    this.schedulerProvider,
                     key,
-                    new Conditions(placeholderProvider, conditions),
+                    new Conditions(this.placeholderProvider, conditions),
                     brands.toArray(new String[0]),
                     shuffle,
                     repeatDelay
@@ -85,11 +85,21 @@ public class BrandGroupHandler {
         this.brandGroups = brandGroups;
     }
 
+    public void removePlayer(final BrandPlayer player) {
+        final BrandGroup brandGroup = this.groups.remove(player.getUniqueId());
+        if (brandGroup != null) brandGroup.removePlayer(player);
+    }
+
+    public void sendCurrentBrandToPlayer(final BrandPlayer player) {
+        final BrandGroup brandGroup = this.groups.get(player.getUniqueId());
+        if (brandGroup != null) {
+            player.updateBrand(brandGroup.getBrand());
+        }
+    }
+
     public void reevaluatePlayerBrandGroups(final BrandPlayer player) {
         if (!player.isOnline()) {
-            final BrandGroup brandGroup = groups.remove(player.getUniqueId());
-            if (brandGroup != null) brandGroup.removePlayer(player);
-
+            removePlayer(player);
             return;
         }
 

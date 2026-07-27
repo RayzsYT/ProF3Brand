@@ -84,6 +84,10 @@ public class ImplProF3Brand implements ProF3Brand {
         return this.brandProvider;
     }
 
+    public BrandGroupHandler getBrandGroupHandler() {
+        return this.brandGroupHandler;
+    }
+
     @Override
     public Object getPluginLoader() {
         return this.pluginLoader;

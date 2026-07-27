@@ -29,6 +29,7 @@ public class ImplBukkitBrandPlayerProvider implements BrandPlayerProvider {
             if (brandPlayer == null) {
                 brandPlayer = new ImplBrandPlayer(bukkitPlayer);
                 this.players.put(bukkitPlayer.getUniqueId(), brandPlayer);
+                System.out.println("create player");
             }
 
             return brandPlayer;
