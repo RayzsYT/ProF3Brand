@@ -1,7 +1,5 @@
 package de.rayzs.prof3brand.api.utils;
 
-import de.rayzs.prof3brand.api.ProF3BrandProvider;
-import de.rayzs.prof3brand.api.player.BrandPlayer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -9,13 +7,16 @@ import java.nio.charset.StandardCharsets;
 
 public class PacketUtils {
 
+    private PacketUtils() {}
+
+
    /*
         Copyright (c) 2012, md_5. All rights reserved.
         Original code from Bungeecord source:
         https://github.com/SpigotMC/BungeeCord/blob/master/protocol/src/main/java/net/md_5/bungee/protocol/DefinedPacket.java#L307-L327
      */
 
-    public static void writeVarInt(int value, ByteBuf output) {
+    private static void writeVarInt(int value, ByteBuf output) {
         int part;
         while (true) {
             part = value & 0x7F;
@@ -34,11 +35,11 @@ public class PacketUtils {
         https://github.com/SpigotMC/BungeeCord/blob/master/protocol/src/main/java/net/md_5/bungee/protocol/DefinedPacket.java#L88-L108
      */
 
-    public static void writeString(String string, ByteBuf byteBuf) throws Exception {
+    private static void writeString(String string, ByteBuf byteBuf) throws Exception {
         writeString(string, byteBuf, Short.MAX_VALUE );
     }
 
-    public static void writeString(String string, ByteBuf byteBuf, int maxLength) throws Exception {
+    private static void writeString(String string, ByteBuf byteBuf, int maxLength) throws Exception {
         if (string.length() > maxLength )
             throw new Exception( "Cannot send string longer than " + maxLength + " (got " + string.length() + " characters)");
 
