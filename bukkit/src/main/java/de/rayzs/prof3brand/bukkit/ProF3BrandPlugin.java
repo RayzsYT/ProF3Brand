@@ -11,22 +11,25 @@ import de.rayzs.prof3brand.bukkit.impl.*;
 import de.rayzs.prof3brand.bukkit.listener.PlayerListener;
 import de.rayzs.prof3brand.bukkit.netty.BukkitPacketAnalyzer;
 import de.rayzs.prof3brand.common.impl.ImplProF3Brand;
-import io.papermc.paper.command.brigadier.BasicCommand;
-import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 public class ProF3BrandPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
         VersionHelper.initialize(Bukkit.getBukkitVersion());
+
+
+        if (VersionHelper.isBefore(1, 13, 0)) {
+            getLogger().warning("ProF3Brand only supports 1.13+ servers!");
+
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
 
         final PlaceholderProvider placeholderProvider = new ImplBukkitPlaceholderProvider();
         final BrandProvider brandProvider = new ImplBukkitBrandProvider(placeholderProvider, this);
