@@ -1,7 +1,6 @@
 package de.rayzs.prof3brand.bukkit.listener;
 
 import de.rayzs.prof3brand.api.ProF3Brand;
-import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import de.rayzs.prof3brand.bukkit.netty.BukkitPacketAnalyzer;
