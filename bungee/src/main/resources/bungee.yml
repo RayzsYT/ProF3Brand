@@ -4,9 +4,3 @@ version: 1.0.0
 main: de.rayzs.prof3brand.bungee.ProF3BrandPlugin
 
 author: Rayzs_YT
-
-
-commands:
-  prof3brand:
-    aliases: ["probrand", "brand", "f3brand"]
-    permission: prof3brand.use

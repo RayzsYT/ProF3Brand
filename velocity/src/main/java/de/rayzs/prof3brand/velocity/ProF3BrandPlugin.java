@@ -1,6 +1,9 @@
 package de.rayzs.prof3brand.velocity;
 
 import com.google.inject.Inject;
+import com.velocitypowered.api.command.CommandManager;
+import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.event.EventManager;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
@@ -19,6 +22,8 @@ import de.rayzs.prof3brand.impl.velocity.ImplVelocityBrandPlayerProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocityBrandProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocityPlaceholderProvider;
 import de.rayzs.prof3brand.impl.velocity.ImplVelocitySchedulerProvider;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.aopalliance.intercept.Invocation;
 
 import java.util.logging.Logger;
 
@@ -57,7 +62,7 @@ public class ProF3BrandPlugin {
 
         final ProF3Brand api = new ImplProF3Brand(
                 this,
-                logger,
+                this.logger,
                 schedulerProvider,
                 brandPlayerProvider,
                 brandProvider,
@@ -66,7 +71,23 @@ public class ProF3BrandPlugin {
         ProF3BrandProvider.set(api);
 
 
-        final PluginContainer pluginContainer = server.getPluginManager().getPlugin("prof3brand").get();
+        final PluginContainer pluginContainer = this.server.getPluginManager().getPlugin("prof3brand").get();
         final String pluginVersion = pluginContainer.getDescription().getVersion().get();
+
+
+        this.server.getCommandManager().register("prof3brand", new SimpleCommand() {
+            @Override
+            public void execute(final Invocation invocation) {
+                final CommandSource source = invocation.source();
+                source.sendMessage(MiniMessage.miniMessage().deserialize("Reloading brands.yml..."));
+                api.reload();
+                source.sendMessage(MiniMessage.miniMessage().deserialize("Successfully reloaded brand.yml!"));
+            }
+
+            @Override
+            public boolean hasPermission(final Invocation invocation) {
+                return invocation.source().hasPermission("prof3brand.use");
+            }
+        }, "probrand", "brand", "f3brand");
     }
 }

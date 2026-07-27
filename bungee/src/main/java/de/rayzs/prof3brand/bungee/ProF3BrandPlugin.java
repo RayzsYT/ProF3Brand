@@ -13,7 +13,9 @@ import de.rayzs.prof3brand.bungee.impl.ImplBungeePlaceholderProvider;
 import de.rayzs.prof3brand.bungee.impl.ImplBungeeSchedulerProvider;
 import de.rayzs.prof3brand.bungee.listener.PlayerListener;
 import de.rayzs.prof3brand.common.impl.ImplProF3Brand;
+import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 
@@ -41,6 +43,17 @@ public class ProF3BrandPlugin extends Plugin {
 
         final PluginManager manager = ProxyServer.getInstance().getPluginManager();
         manager.registerListener(this, new PlayerListener(api));
+
+
+        manager.registerCommand(this, new Command("prof3brand", "prof3brand.use", "probrand", "brand", "f3brand") {
+
+            @Override
+            public void execute(CommandSender sender, String[] strings) {
+                sender.sendMessage("Reloading brands.yml...");
+                api.reload();
+                sender.sendMessage("Successfully reloaded brand.yml!");
+            }
+        });
     }
 
     @Override

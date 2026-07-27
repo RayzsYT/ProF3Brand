@@ -1,9 +1,11 @@
-# ██████╗ ██████╗  █████╗ ███████╗██████╗ ██████╗ ██████╗  █████╗ ███╗  ██╗██████╗
-# ██╔══██╗██╔══██╗██╔══██╗██╔════╝╚════██╗██╔══██╗██╔══██╗██╔══██╗████╗ ██║██╔══██╗
-# ██████╔╝██████╔╝██║  ██║█████╗   █████╔╝██████╦╝██████╔╝███████║██╔██╗██║██║  ██║
-# ██╔═══╝ ██╔══██╗██║  ██║██╔══╝   ╚═══██╗██╔══██╗██╔══██╗██╔══██║██║╚████║██║  ██║
-# ██║     ██║  ██║╚█████╔╝██║     ██████╔╝██████╦╝██║  ██║██║  ██║██║ ╚███║██████╔╝
-# ╚═╝     ╚═╝  ╚═╝ ╚════╝ ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝╚═════╝
+# ██████╗ ██████╗  █████╗     ███████╗██████╗    ██████╗ ██████╗  █████╗ ███╗  ██╗██████╗
+# ██╔══██╗██╔══██╗██╔══██╗    ██╔════╝╚════██╗   ██╔══██╗██╔══██╗██╔══██╗████╗ ██║██╔══██╗
+# ██████╔╝██████╔╝██║  ██║    █████╗   █████╔╝   ██████╦╝██████╔╝███████║██╔██╗██║██║  ██║
+# ██╔═══╝ ██╔══██╗██║  ██║    ██╔══╝   ╚═══██╗   ██╔══██╗██╔══██╗██╔══██║██║╚████║██║  ██║
+# ██║     ██║  ██║╚█████╔╝    ██║     ██████╔╝   ██████╦╝██║  ██║██║  ██║██║ ╚███║██████╔╝
+# ╚═╝     ╚═╝  ╚═╝ ╚════╝     ╚═╝     ╚═════╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝╚═════╝
+#                      https://github.com/RayzsYT/ProF3Brand
+#
 #
 # --- HOW IT WORKS AND DETECTS THE CORRECT GROUP ---
 #
@@ -30,6 +32,19 @@
 #
 # If the player would let's say for example be in SURVIVAL mode, then the conditions for the Builder group would also not be met,
 # thus giving the player the brand of the default group that requires not condition.
+#
+#
+#
+# --- GUIDE ON HOW TO USE THE CONDITIONS SYSTEM ---
+#
+# Conditions are built as a list of requirements split by comas (,).
+# It does not matter if before or after the coma is an extra space or not.
+# A condition can either be a single statement which says either 'true' or 'false', or
+# can also be a more simplified statements using operations such as !=, ==, >, >=, etc... (shown in the tables below)
+#
+# (!WARNING!) Variables MUST ALWAYS be seperated by a SPACE.
+#             > How to do it:     %gamemode% == creative
+#             > How NOT to do it: %gamemode%==creative
 #
 #
 #
@@ -111,7 +126,7 @@
 
 "admin":
   # Required the player to be OP and NOT in creative mode.
-  condition: "%gamemode%!=creative;%opped% == true"
+  condition: "%gamemode% != creative, %opped% == true"
 
   # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
@@ -123,7 +138,7 @@
 
 "admin-builder":
   # Requires the player to be OP and in CREATIVE mode.
-  condition: "%gamemode%==creative;%opped% is true"
+  condition: "%gamemode% == creative, %opped% is true"
 
   # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
@@ -135,7 +150,7 @@
 
 "builder":
   # Requires the player to be in CREATIVE mode.
-  condition: "%gamemode%==creative"
+  condition: "%gamemode% == creative"
 
   # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false

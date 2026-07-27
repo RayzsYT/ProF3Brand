@@ -34,6 +34,9 @@ public class BrandGroupHandler {
     }
 
     public void reload() {
+        this.groups.clear();
+
+
         if (this.brandGroups != null) for (BrandGroup brandGroup : this.brandGroups) {
             brandGroup.stopScheduler();
         }
@@ -124,7 +127,6 @@ public class BrandGroupHandler {
             }
         }
 
-        final BrandGroup prevGroup = groups.remove(player.getUniqueId());
-        prevGroup.removePlayer(player);
+        removePlayer(player);
     }
 }

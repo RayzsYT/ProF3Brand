@@ -24,15 +24,14 @@ public abstract class ConditionOperator {
     ) throws ConditionException;
 
 
-    public int[] findOperatorIndex(final String str) {
+    public boolean isOperator(final String str) {
         for (String operatorStr : this.operatorStrs) {
-            final int index = StringUtils.searchIndex(operatorStr, str);
-            if (index == -1) continue;
-
-            return new int[] {index, index + operatorStr.length()};
+            if (str.equalsIgnoreCase(operatorStr)) {
+                return true;
+            }
         }
 
-        return new int[] {-1};
+        return false;
     }
 
     public ConditionInputType getInputType() {

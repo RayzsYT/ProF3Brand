@@ -11,10 +11,16 @@ import de.rayzs.prof3brand.bukkit.impl.*;
 import de.rayzs.prof3brand.bukkit.listener.PlayerListener;
 import de.rayzs.prof3brand.bukkit.netty.BukkitPacketAnalyzer;
 import de.rayzs.prof3brand.common.impl.ImplProF3Brand;
+import io.papermc.paper.command.brigadier.BasicCommand;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public class ProF3BrandPlugin extends JavaPlugin {
 
@@ -45,6 +51,15 @@ public class ProF3BrandPlugin extends JavaPlugin {
         Bukkit.getOnlinePlayers().forEach(bukkitPlayer -> {
             BukkitPacketAnalyzer.getPlayerChannel(bukkitPlayer);
             brandPlayerProvider.convertPlayer(bukkitPlayer);
+        });
+
+
+        getCommand("prof3brand").setExecutor((sender, command, label, args) -> {
+            sender.sendMessage("Reloading brands.yml...");
+            api.reload();
+            sender.sendMessage("Successfully reloaded brand.yml!");
+
+            return true;
         });
     }
 
