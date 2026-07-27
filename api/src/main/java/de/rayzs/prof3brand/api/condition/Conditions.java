@@ -59,9 +59,6 @@ public class Conditions {
                             ? new String[] { variables[0], variables[2] } : variables
                     );
 
-                    System.out.println(conditionOperator.getClass().getSimpleName());
-                    System.out.println(c + " -> " + Arrays.toString(variables) + ": " + Arrays.toString(operatorVariables.get(conditionOperator)));
-
                     foundOperators.add(conditionOperator);
 
                     // No need for a one-variable condition to be on mapped with every condition-operator.
