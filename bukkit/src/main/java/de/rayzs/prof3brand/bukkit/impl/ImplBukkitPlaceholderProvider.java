@@ -21,12 +21,16 @@ public class ImplBukkitPlaceholderProvider implements PlaceholderProvider {
         final String worldName = world.getName();
         final String gameMode = bukkitPlayer.getGameMode().name();
         final String opped = bukkitPlayer.isOp() ? "true" : "false";
+        final String alive = !bukkitPlayer.isDead() ? "true" : "false";
+        final String dead = bukkitPlayer.isDead() ? "true" : "false";
 
         text = text
                 .replace("%player%", playerName)
                 .replace("%world%", worldName)
                 .replace("%gamemode%", gameMode)
-                .replace("%opped%", opped);
+                .replace("%opped%", opped)
+                .replace("%dead%", dead)
+                .replace("%alive%", alive);
 
         return PluginHooks.PLACEHOLDERAPI.modifyIfExist(text, (PlaceholderAPIHook hook, String str)
                 -> hook.replacePlaceholders(player, str)

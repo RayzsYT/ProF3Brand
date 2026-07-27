@@ -5,7 +5,36 @@
 # ██║     ██║  ██║╚█████╔╝██║     ██████╔╝██████╦╝██║  ██║██║  ██║██║ ╚███║██████╔╝
 # ╚═╝     ╚═╝  ╚═╝ ╚════╝ ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝╚═════╝
 #
-# System integrated condition placeholders:
+# --- HOW IT WORKS AND DETECTS THE CORRECT GROUP ---
+#
+# Detailed explanation on how groups are given to players:
+# Groups are given to the player by order on how it's written inside this file.
+# All groups that have conditions will be checked first by order from top to bottom how it's written.
+# Once a player fulfills the conditions of one group, the player will be set inside that group and receive it's brand.
+# If a player finds no group, the player will be set to a group that requires no condition.
+#
+# In the given example, the 'default' group does not require any condition, therefore will be given to the player in case
+# no group could be found for the player to be in.
+#
+# Now let's say our player is in CREATIVE mode and is not OP.
+# By order, the system will first check the conditions for the admin
+# group. The admin group requires the player to be NOT in CREATIVE and to be OP.
+# Our player however is in CREATIVE and NOT OP, thus not meeting the conditions.
+#
+# Now the system will check the conditions of the admin-builder group. This group requires the player to be
+# both in CREATIVE mode and OP. Our player is in CREATIVE but NOT OP, thus not meeting the conditions.
+#
+# Now the system will check the conditions of the builder group. This group only requires the player to be
+# in CREATIVE mode. Our player in CREATIVE mode, thus meeting the conditions. The player will therefor receive
+# the brand of the builder group.
+#
+# If the player would let's say for example be in SURVIVAL mode, then the conditions for the Builder group would also not be met,
+# thus giving the player the brand of the default group that requires not condition.
+#
+#
+#
+# --- CONDITION PLACEHOLDERS ---
+#
 # Placeholder      Description           Example Outputs
 # --------------------------------------------------------------
 # BUKKIT
@@ -13,18 +42,40 @@
 #  %world%          Player world name     world/world_the_end...
 #  %gamemode%       Player gamemode       CREATIVE/SURVIVAL...
 #  %opped%          Player is opped?      true/false
+#  %alive%          Player is alive?      true/false
+#  %dead%           Player is dead?       true/false
 #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 # PROXY
 #  %player%         Player name           Rayzs_YT
 #  %server_name%    Player server name    lobby/factions...
 #  %server_count%   Player gamemode       3
 # --------------------------------------------------------------
-# Of course also PlaceholderAPI placeholders.
+# (+) PlaceholderAPI placeholders are also supported of course!
 #
+#
+#
+# --- CONDITION OPERATORS ---
+#
+# Operator(s)                                    Description                         Example
+# -----------------------------------------------------------------------------------------------
+#  ==, equals, is, like                           A and B are the same                %gamemode% == creative
+#  !=, not equals, is not, isn't, unlike          A and B are not the same            %opped% != true
+#  >, bigger than                                 A is bigger than B                  %vault_eco_balance% > 10
+#  >=, bigger-equals than                         A is bigger or equal to B           %vault_eco_balance% >= 10
+#  <, lower than                                  A is lower than B                   %vault_eco_balance% < 10
+#  <=, lower-equals than                          A is lower or equal to B            %vault_eco_balance% <= 10
+#  &&, and                                        A and B say both 'true'             %alive% == %opped%
+#  ||, or                                         A or B says 'true'                  %alive% || %opped%
+# ----------------------------------------------------------------------------------------------
 
 "default":
+  # No conditions required
   condition: ""
+
+  # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
+
+  # How fast to update in ticks. Write -1 to disable the animation. (1s = 20)
   repeat-delay: 1
   brands:
     - "&6ProF3Brand"
@@ -59,22 +110,37 @@
     - "&6ProF3Brand"
 
 "admin":
+  # Required the player to be OP and NOT in creative mode.
   condition: "%gamemode%!=creative;%opped% is true"
+
+  # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
+
+  # How fast to update in ticks. Write -1 to disable the animation. (1s = 20)
   repeat-delay: -1
   brands:
     - "&cADMIN"
 
 "admin-builder":
+  # Requires the player to be OP and in CREATIVE mode.
   condition: "%gamemode%==creative;%opped% is true"
+
+  # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
+
+  # How fast to update in ticks. Write -1 to disable the animation. (1s = 20)
   repeat-delay: -1
   brands:
     - "&cADMIN BUILDER: &7You are in world: &e%world%"
 
 "builder":
+  # Requires the player to be in CREATIVE mode.
   condition: "%gamemode%==creative"
+
+  # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
+
+  # How fast to update in ticks. Write -1 to disable the animation. (1s = 20)
   repeat-delay: -1
   brands:
     - "&aBUILDER: &7You are in world: &e%world%"
