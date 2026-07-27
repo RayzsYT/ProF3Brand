@@ -9,7 +9,6 @@
 #
 # --- HOW IT WORKS AND DETECTS THE CORRECT GROUP ---
 #
-# Detailed explanation on how groups are given to players:
 # Groups are given to the player by order on how it's written inside this file.
 # All groups that have conditions will be checked first by order from top to bottom how it's written.
 # Once a player fulfills the conditions of one group, the player will be set inside that group and receive it's brand.
@@ -37,7 +36,7 @@
 #
 # --- GUIDE ON HOW TO USE THE CONDITIONS SYSTEM ---
 #
-# Conditions are built as a list of requirements split by comas (,).
+# Conditions are built as a list of requirements split by semicolumns (;).
 # It does not matter if before or after the coma is an extra space or not.
 # A condition can either be a single statement which says either 'true' or 'false', or
 # can also be a more simplified statements using operations such as !=, ==, >, >=, etc... (shown in the tables below)
@@ -63,7 +62,7 @@
 # PROXY
 #  %player%         Player name           Rayzs_YT
 #  %server_name%    Player server name    lobby/factions...
-#  %server_count%   Player gamemode       3
+#  %server_count%   Player server count   3
 # --------------------------------------------------------------
 # (+) PlaceholderAPI placeholders are also supported of course!
 #
@@ -79,9 +78,10 @@
 #  >=, bigger-equals than                         A is bigger or equal to B           %vault_eco_balance% >= 10
 #  <, lower than                                  A is lower than B                   %vault_eco_balance% < 10
 #  <=, lower-equals than                          A is lower or equal to B            %vault_eco_balance% <= 10
-#  &&, and                                        A and B say both 'true'             %alive% == %opped%
-#  ||, or                                         A or B says 'true'                  %alive% || %opped%
-# ---------------------------------------------------------------------------------------------------------------
+#  &&, and                                        A and B say both 'true'             %alive% && !%opped%
+#  ||, or                                         Either A or B is 'true'             !%alive% || %opped%
+#  !                                              Negate a 'true'/'false' statement   %opped% (true -> false)
+# -------------------------------------------------------------------------------------------------------------------
 
 "default":
   # No conditions required
@@ -126,7 +126,7 @@
 
 "admin":
   # Required the player to be OP and NOT in creative mode.
-  condition: "%gamemode% != creative, %opped% == true"
+  condition: "%gamemode% != creative; %opped% == true"
 
   # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false
@@ -138,7 +138,7 @@
 
 "admin-builder":
   # Requires the player to be OP and in CREATIVE mode.
-  condition: "%gamemode% == creative, %opped% is true"
+  condition: "%gamemode% == creative; %opped% is true"
 
   # Should it animate the brand by order, or randomly. (false = by order, true = random)
   shuffle: false

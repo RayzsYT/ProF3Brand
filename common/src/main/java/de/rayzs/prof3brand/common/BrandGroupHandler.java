@@ -1,14 +1,14 @@
 package de.rayzs.prof3brand.common;
 
 import de.rayzs.prof3brand.api.ProF3Brand;
-import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.brand.BrandGroup;
-import de.rayzs.prof3brand.api.condition.Conditions;
 import de.rayzs.prof3brand.api.config.Config;
 import de.rayzs.prof3brand.api.config.ConfigProvider;
 import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.scheduler.SchedulerProvider;
+import de.rayzs.prof3brand.common.impl.brand.ImplBrandGroup;
+import de.rayzs.prof3brand.common.impl.condition.ImplConditions;
 
 import java.util.*;
 
@@ -68,10 +68,10 @@ public class BrandGroupHandler {
             final int repeatDelay = (int) this.config.get(key, "repeat-delay");
 
 
-            final BrandGroup brandGroup = new BrandGroup(
+            final BrandGroup brandGroup = new ImplBrandGroup(
                     this.schedulerProvider,
                     key,
-                    new Conditions(this.placeholderProvider, conditions),
+                    new ImplConditions(this.placeholderProvider, conditions),
                     brands.toArray(new String[0]),
                     shuffle,
                     repeatDelay

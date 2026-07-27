@@ -1,8 +1,8 @@
-package de.rayzs.prof3brand.api.condition.operators;
+package de.rayzs.prof3brand.common.impl.condition.operators;
 
 import de.rayzs.prof3brand.api.condition.ConditionOperator;
-import de.rayzs.prof3brand.api.condition.operators.exceptions.ConditionException;
-import de.rayzs.prof3brand.api.condition.operators.exceptions.InvalidEvaluationException;
+import de.rayzs.prof3brand.api.exceptions.ConditionException;
+import de.rayzs.prof3brand.api.exceptions.InvalidEvaluationException;
 
 import java.util.Objects;
 

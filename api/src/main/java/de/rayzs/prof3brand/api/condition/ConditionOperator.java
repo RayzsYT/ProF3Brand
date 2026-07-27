@@ -1,6 +1,6 @@
 package de.rayzs.prof3brand.api.condition;
 
-import de.rayzs.prof3brand.api.condition.operators.exceptions.ConditionException;
+import de.rayzs.prof3brand.api.exceptions.ConditionException;
 
 public abstract class ConditionOperator {
 
@@ -53,7 +53,7 @@ public abstract class ConditionOperator {
             return null;
         }
 
-        private Object validate(final String str) {
+        private Object validate(String str) {
             switch (this) {
                 case STR:
                     return str;
@@ -66,9 +66,15 @@ public abstract class ConditionOperator {
                     }
 
                 case BOOL:
-                    return str.equalsIgnoreCase("true") ? Boolean.TRUE
-                            : str.equalsIgnoreCase("false") ? Boolean.FALSE
-                            : null;
+                    final boolean negated = str.charAt(0) == '!';
+                    str = negated ? str.substring(1) : str;
+
+                    final boolean isTrue = str.equalsIgnoreCase("true");
+                    if (!isTrue && !str.equalsIgnoreCase("false")) {
+                        return null;
+                    }
+
+                    return negated != isTrue;
             }
 
             return null;
