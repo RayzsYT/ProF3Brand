@@ -93,7 +93,7 @@ public class BrandGroupHandler {
         this.brandGroups = brandGroups;
 
 
-        this.instance.info("Loaded " + brandGroups.length + " brand groups in total! (" + (System.currentTimeMillis() - startTime) + ")");
+        this.instance.info("Loaded " + brandGroups.length + " brand groups in total! (" + (System.currentTimeMillis() - startTime) + "ms)");
     }
 
     public void removePlayer(final BrandPlayer player) {
