@@ -85,7 +85,7 @@ public class BrandGroup {
     }
 
     public void stopScheduler() {
-        this.task.stop();
+        if (this.task != null) this.task.stop();
     }
 
     public String getBrand() {
