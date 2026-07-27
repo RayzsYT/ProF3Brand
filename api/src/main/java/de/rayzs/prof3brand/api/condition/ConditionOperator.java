@@ -1,14 +1,13 @@
 package de.rayzs.prof3brand.api.condition;
 
 import de.rayzs.prof3brand.api.condition.operators.exceptions.ConditionException;
-import de.rayzs.prof3brand.api.utils.StringUtils;
 
 public abstract class ConditionOperator {
 
     private final String[] operatorStrs;
     private final ConditionInputType inputType;
 
-    public ConditionOperator(final ConditionInputType inputType, final String... operatorStrs) {
+    protected ConditionOperator(final ConditionInputType inputType, final String... operatorStrs) {
         this.inputType = inputType;
         this.operatorStrs = operatorStrs;
     }

@@ -2,6 +2,10 @@ package de.rayzs.prof3brand.api.utils;
 
 public class VersionHelper {
 
+
+    private VersionHelper() {}
+
+
     private static int major, minor, release;
     private static String versionPackage;
 

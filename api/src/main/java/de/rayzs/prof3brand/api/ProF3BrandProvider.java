@@ -3,6 +3,9 @@ package de.rayzs.prof3brand.api;
 public class ProF3BrandProvider {
 
 
+    private ProF3BrandProvider() {}
+
+
     private static ProF3Brand INSTANCE;
 
 

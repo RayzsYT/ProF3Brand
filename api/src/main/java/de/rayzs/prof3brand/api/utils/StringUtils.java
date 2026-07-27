@@ -2,6 +2,10 @@ package de.rayzs.prof3brand.api.utils;
 
 public class StringUtils {
 
+
+    private StringUtils() {}
+
+
     /**
      * Looks for the String which is being searched inside the source
      * String. If it finds a match, it will return the index of the

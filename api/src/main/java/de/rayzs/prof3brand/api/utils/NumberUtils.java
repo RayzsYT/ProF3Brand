@@ -2,6 +2,10 @@ package de.rayzs.prof3brand.api.utils;
 
 public class NumberUtils {
 
+
+    private NumberUtils() {}
+
+
     private static final char[] EXCEPTIONS = {'.', ',', 'k', 'm', 'b'};
 
     public static boolean isBetween(int n, int l, int r) {
