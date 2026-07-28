@@ -5,6 +5,7 @@ import de.rayzs.prof3brand.api.condition.ConditionOperator;
 import de.rayzs.prof3brand.api.condition.Conditions;
 import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
+import de.rayzs.prof3brand.api.utils.TripleMap;
 import de.rayzs.prof3brand.common.impl.condition.operators.*;
 
 import java.util.ArrayList;
@@ -30,20 +31,14 @@ public class ImplConditions implements Conditions {
     };
 
 
+    private final TripleMap<ConditionOperator, String[], Object[]> operatorVariables = new TripleMap<>();
     private final PlaceholderProvider placeholderProvider;
-
-    private final Map<ConditionOperator, String[]> operatorVariables = new HashMap<>();
-
-    private final ConditionOperator[] operators;
-    private final String rawStr;
 
     public ImplConditions(final PlaceholderProvider placeholderProvider, final String rawStr) {
         this.placeholderProvider = placeholderProvider;
-        this.rawStr = rawStr;
 
 
-        final List<ConditionOperator> foundOperators = new ArrayList<>();
-        final String[] split = this.rawStr.split(";");
+        final String[] split = rawStr.split(";");
 
         for (final String c : split) {
             for (ConditionOperator operator : OPERATORS) {
@@ -56,13 +51,31 @@ public class ImplConditions implements Conditions {
 
                 try {
                     final ConditionOperator conditionOperator = operator.getClass().newInstance();
+                    Object fstObj = null, sndObj = null;
 
-                    operatorVariables.put(conditionOperator, variables.length == 1
-                            ? new String[] { variables[0] } : variables.length == 3
-                            ? new String[] { variables[0], variables[2] } : variables
+
+                    final String fstStr = variables[0];
+                    final String sndStr = variables.length == 3 ? variables[2] : null;
+
+                    if (!fstStr.contains("%")) {
+                        fstObj = operator.getInputType().validateIfPossible(Object.class, fstStr);
+                    }
+
+                    if (sndStr != null && !sndStr.contains("%")) {
+                        sndObj = operator.getInputType().validateIfPossible(Object.class, sndStr);
+                    }
+
+                    operatorVariables.putFst(conditionOperator,
+                            sndStr == null
+                                    ? new String[] { variables[0] }
+                                    : new String[] { variables[0], variables[2] }
                     );
 
-                    foundOperators.add(conditionOperator);
+                    operatorVariables.putSnd(conditionOperator,
+                            sndStr == null
+                                    ? new Object[] { fstObj }
+                                    : new Object[] { fstObj, sndObj }
+                    );
 
                     // No need for a one-variable condition to be on mapped with every condition-operator.
                     // So we only do it once and switch to the next variable.
@@ -75,23 +88,27 @@ public class ImplConditions implements Conditions {
                 }
             }
         }
-
-        operators = foundOperators.toArray(new ConditionOperator[0]);
     }
 
     @Override
     public boolean evaluate(final BrandPlayer player) {
-        for (Map.Entry<ConditionOperator, String[]> entry : operatorVariables.entrySet()) {
-            final String[] variables = entry.getValue();
-            final ConditionOperator operator = entry.getKey();
+        for (ConditionOperator operator : operatorVariables.keySet()) {
+            final String[] variables = operatorVariables.getFst(operator);
+            final Object[] objects = operatorVariables.getSnd(operator);
 
             if (variables.length == 0) continue;
 
 
             try {
                 if (variables.length == 1) {
-                    final String rightStr = replacePlaceholdersIfPossible(player, variables[0]);
-                    final Object rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
+                    Object rightObj = objects[0];
+                    String rightStr = variables[0];
+
+                    if (rightObj == null) {
+                        rightStr = replacePlaceholdersIfPossible(player, rightStr);
+                        rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
+                    }
+
 
                     if (rightObj == null) {
                         ProF3BrandProvider.get().warn("Parameter is not of type " + operator.getInputType().name() + "! (" + rightStr + ")");
@@ -108,12 +125,23 @@ public class ImplConditions implements Conditions {
                     }
 
                 } else {
+                    Object leftObj = objects[0];
+                    String leftStr = variables[0];
 
-                    final String leftStr = replacePlaceholdersIfPossible(player, variables[0]);
-                    final Object leftObj = operator.getInputType().validateIfPossible(Object.class, leftStr);
+                    if (leftObj == null) {
+                        leftStr = replacePlaceholdersIfPossible(player, leftStr);
+                        leftObj = operator.getInputType().validateIfPossible(Object.class, leftStr);
+                    }
 
-                    final String rightStr = replacePlaceholdersIfPossible(player, variables[1]);
-                    final Object rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
+
+                    Object rightObj = objects[1];
+                    String rightStr = variables[1];
+
+                    if (rightObj == null) {
+                        rightStr = replacePlaceholdersIfPossible(player, rightStr);
+                        rightObj = operator.getInputType().validateIfPossible(Object.class, rightStr);
+                    }
+
 
                     if (leftObj == null) {
                         ProF3BrandProvider.get().warn("Left-sided parameter is not of type " + operator.getInputType().name() + "! (" + leftStr + ", " + variables[0] + ")");
