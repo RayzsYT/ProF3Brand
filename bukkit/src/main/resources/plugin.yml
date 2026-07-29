@@ -1,6 +1,6 @@
 name: ProF3Brand
 
-version: 1.0.0
+version: 1.0.1
 version-api: 1.13
 main: de.rayzs.prof3brand.bukkit.ProF3BrandPlugin
 

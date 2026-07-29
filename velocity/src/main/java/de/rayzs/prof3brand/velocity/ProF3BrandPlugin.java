@@ -1,7 +1,6 @@
 package de.rayzs.prof3brand.velocity;
 
 import com.google.inject.Inject;
-import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.event.EventManager;
@@ -10,7 +9,6 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.proxy.ProxyServer;
-import de.rayzs.prof3brand.api.ProF3Brand;
 import de.rayzs.prof3brand.api.ProF3BrandProvider;
 import de.rayzs.prof3brand.api.brand.BrandProvider;
 import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
@@ -30,7 +28,7 @@ import java.util.logging.Logger;
 @Plugin(
         id = "prof3brand",
         name = "ProF3Brand",
-        version = "1.0.0",
+        version = "1.0.1",
         url = "https://modrinth.com/plugin/prof3brand",
         description = "Fully customize the F3 server brand to your personal liking.",
         authors = {"Rayzs_YT"}

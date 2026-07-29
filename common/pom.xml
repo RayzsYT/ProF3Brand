@@ -6,7 +6,7 @@
     <parent>
         <groupId>de.rayzs.prof3brand</groupId>
         <artifactId>ProF3Brand</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>common</artifactId>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>de.rayzs.prof3brand</groupId>
             <artifactId>api</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>
