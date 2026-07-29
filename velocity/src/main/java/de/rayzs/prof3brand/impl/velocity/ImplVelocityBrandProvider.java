@@ -1,16 +1,12 @@
 package de.rayzs.prof3brand.impl.velocity;
 
 import com.velocitypowered.api.proxy.Player;
-import com.velocitypowered.api.proxy.ProxyServer;
 import de.rayzs.prof3brand.api.brand.BrandProvider;
 import de.rayzs.prof3brand.api.placeholder.PlaceholderProvider;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.utils.PacketUtils;
 import io.netty.buffer.ByteBuf;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-
 import java.lang.reflect.Method;
 
 public class ImplVelocityBrandProvider implements BrandProvider {

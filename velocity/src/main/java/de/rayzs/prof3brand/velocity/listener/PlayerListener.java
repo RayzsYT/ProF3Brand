@@ -5,7 +5,6 @@ import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
 import com.velocitypowered.api.proxy.Player;
-import de.rayzs.prof3brand.api.ProF3Brand;
 import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.player.BrandPlayerProvider;
 import de.rayzs.prof3brand.common.BrandGroupHandler;

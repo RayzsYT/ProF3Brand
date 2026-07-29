@@ -1,7 +1,6 @@
 package de.rayzs.prof3brand.api.player;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.UUID;
 
 public interface BrandPlayerProvider {

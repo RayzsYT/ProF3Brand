@@ -5,6 +5,7 @@ import de.rayzs.prof3brand.api.exceptions.ConditionException;
 import de.rayzs.prof3brand.api.exceptions.InvalidEvaluationException;
 import de.rayzs.prof3brand.api.exceptions.InvalidParametersException;
 
+// Not implemented for now, since there's no need for it as it turns out.
 public class NotOperator extends ConditionOperator {
 
     public NotOperator() {

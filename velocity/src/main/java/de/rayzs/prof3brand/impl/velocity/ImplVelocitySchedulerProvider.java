@@ -1,6 +1,5 @@
 package de.rayzs.prof3brand.impl.velocity;
 
-import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.scheduler.Scheduler;
 import de.rayzs.prof3brand.api.scheduler.SchedulerProvider;

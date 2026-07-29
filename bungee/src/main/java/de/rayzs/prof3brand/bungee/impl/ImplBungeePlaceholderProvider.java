@@ -5,8 +5,6 @@ import de.rayzs.prof3brand.api.player.BrandPlayer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
 
-import java.util.stream.Collectors;
-
 public class ImplBungeePlaceholderProvider implements PlaceholderProvider {
 
     @Override

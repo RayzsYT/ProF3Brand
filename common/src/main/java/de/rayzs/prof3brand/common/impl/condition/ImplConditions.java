@@ -8,11 +8,6 @@ import de.rayzs.prof3brand.api.player.BrandPlayer;
 import de.rayzs.prof3brand.api.utils.TripleMap;
 import de.rayzs.prof3brand.common.impl.condition.operators.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class ImplConditions implements Conditions {
 
 
